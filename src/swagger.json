@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Api to shop system",
-    "description": "Api to manage a lot of shoppings",
+    "title": "Api to store system",
+    "description": "Api to manage a lot of stores",
     "termsOfService": "http://localhost:3000/terms",
     "contact": {
       "email": "jlgf.profissional@gmail.com"

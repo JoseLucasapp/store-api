@@ -1,6 +1,6 @@
 import { connect, connection } from 'mongoose'
 
-const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/shopapi'
+const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/storeapi'
 
 connect(MONGO_URL)
 
