@@ -10,7 +10,14 @@
     "start": "NODE_ENV=production ts-node --transpile-only ./src/app.ts",
     "format": "prettier --config .prettierrc \"./**/*.{js,ts,md,json}\" --write"
   },
-  "keywords": [],
+  "keywords": [
+    "swagger",
+    "nodeJS",
+    "typescript",
+    "mongo",
+    "crud",
+    "mongo"
+  ],
   "devDependencies": {
     "@types/cors": "^2.8.12",
     "@types/dotenv": "^8.2.0",
