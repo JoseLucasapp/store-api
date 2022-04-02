@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "nodemon ./src/app.ts",
     "start": "NODE_ENV=production ts-node --transpile-only ./src/app.ts",
-    "format": "prettier --config .prettierrc \"./**/*.{js,ts,md,json}\" --write"
+    "format": "prettier --config .prettierrc \"./**/*.{js,ts,md,json}\" --write",
+    "seed": "ts-node ./src/seeds/index.ts"
   },
   "keywords": [
     "swagger",
