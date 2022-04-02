@@ -13,15 +13,15 @@ app.use(express.json())
 app.use(cors())
 
 app.listen(port, () => {
-    console.log(`Api version ${version}, running on port ${port}`)
+  console.log(`Api version ${version}, running on port ${port}`)
 })
 
 app.get('/', (req: Request, res: Response) => {
-    res.status(200).json({ version: process.env.npm_package_version })
+  res.status(200).json({ version: process.env.npm_package_version })
 })
 
 const modules: string[] = []
 
 modules.forEach((moduleName) => {
-    app.use(`/api/v${version}/${moduleName}`, require(`modules/v${version}/${moduleName}/routes`))
+  app.use(`/api/v${version}/${moduleName}`, require(`modules/v${version}/${moduleName}/routes`))
 })
