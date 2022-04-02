@@ -1,9 +1,9 @@
 import { Types } from 'mongoose'
 
 export enum UserTypeEnum {
-  admin = 'ADMIN',
-  manager = 'MANAGER',
-  worker = 'WORKER',
+  ADMIN = 'ADMIN',
+  MANAGER = 'MANAGER',
+  WORKER = 'WORKER',
 }
 
 export interface AuthInterface {

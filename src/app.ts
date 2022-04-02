@@ -28,8 +28,8 @@ app.listen(port, () => {
   console.log(`Api version ${version}, running on port ${port}`)
 })
 
-const modules: string[] = []
+const modules: string[] = ['admins']
 
 modules.forEach((moduleName) => {
-  app.use(`/api/v${version}/${moduleName}`, require(`modules/v${version}/${moduleName}/routes`))
+  app.use(`/api/v${version}/${moduleName}`, require(`./modules/v${version}/${moduleName}/routes`))
 })

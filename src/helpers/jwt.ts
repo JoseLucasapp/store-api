@@ -1,5 +1,5 @@
 import jwt, { SignOptions } from 'jsonwebtoken'
-import { AuthInterface, LogTypeEnum } from 'helpers/types'
+import { AuthInterface, LogTypeEnum } from './types'
 import { printError } from './utils'
 
 const jwtSecret = process.env.SECRET_KEY || 'secret'
