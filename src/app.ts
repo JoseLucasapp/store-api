@@ -4,6 +4,9 @@ dotenv.config()
 import express, { Request, Response } from 'express'
 import cors from 'cors'
 
+import swaggerUI from 'swagger-ui-express'
+import swaggerDocs from './swagger.json'
+
 const port = process.env.PORT || '3000'
 const version = process.env.VERSION || '1'
 
@@ -11,17 +14,21 @@ const app = express()
 
 app.use(express.json())
 app.use(cors())
-
-app.listen(port, () => {
-    console.log(`Api version ${version}, running on port ${port}`)
-})
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
 
 app.get('/', (req: Request, res: Response) => {
-    res.status(200).json({ version: process.env.npm_package_version })
+  res.status(200).json({ version: process.env.npm_package_version })
+})
+app.get('/terms', (req: Request, res: Response) => {
+  res.status(200).json({ terms: 'Terms of service' })
+})
+
+app.listen(port, () => {
+  console.log(`Api version ${version}, running on port ${port}`)
 })
 
 const modules: string[] = []
 
 modules.forEach((moduleName) => {
-    app.use(`/api/v${version}/${moduleName}`, require(`modules/v${version}/${moduleName}/routes`))
+  app.use(`/api/v${version}/${moduleName}`, require(`modules/v${version}/${moduleName}/routes`))
 })

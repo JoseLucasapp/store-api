@@ -1,28 +1,28 @@
 import { Types } from 'mongoose'
 
 export enum UserTypeEnum {
-    admin = 'ADMIN',
-    manager = 'MANAGER',
-    worker = 'WORKER'
+  admin = 'ADMIN',
+  manager = 'MANAGER',
+  worker = 'WORKER',
 }
 
 export interface AuthInterface {
-    id: Types.ObjectId
-    email: string
-    role: UserTypeEnum
+  id: Types.ObjectId
+  email: string
+  role: UserTypeEnum
 }
 
 export enum LogTypeEnum {
-    info = 'info',
-    warning = 'warning',
-    error = 'error',
+  info = 'info',
+  warning = 'warning',
+  error = 'error',
 }
 
 export interface LogInterface {
-    type?: LogTypeEnum
-    moduleName: string
-    functionName: string
-    message: string
-    session?: any
-    stackTrace?: any
+  type?: LogTypeEnum
+  moduleName: string
+  functionName: string
+  message: string
+  session?: any
+  stackTrace?: any
 }
