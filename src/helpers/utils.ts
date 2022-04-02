@@ -1,4 +1,5 @@
 import { LogInterface, LogTypeEnum } from './types'
+import { createHash as cryptoCreateHash } from 'crypto'
 
 export const printError = ({ type, moduleName, functionName, message, session, stackTrace }: LogInterface) => {
   const content = `Type: ${type}, Module: ${moduleName}, Function: ${functionName}, Message: ${message}, Session: ${session}, ${stackTrace}`
@@ -16,4 +17,8 @@ export const printError = ({ type, moduleName, functionName, message, session, s
   }
 
   return console[parseLogType()](parseColors(), content)
+}
+
+export const createHash = (value: string) => {
+  return cryptoCreateHash('sha256').update(value).digest('hex')
 }

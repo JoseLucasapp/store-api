@@ -26,3 +26,13 @@ export interface LogInterface {
   session?: any
   stackTrace?: any
 }
+
+export interface AddressInterface {
+  city: string
+  neighborhood: string
+  zipCode: string
+  state: string
+  street: string
+  number: string
+  complement?: string
+}
