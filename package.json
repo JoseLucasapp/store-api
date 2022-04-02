@@ -1,7 +1,7 @@
 {
-  "name": "api-shop",
+  "name": "api-store",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./src/app.js",
   "repository": "https://github.com/JoseLucasapp/api-shop.git",
   "author": "José Lucas <josluc2016@gmail.com>",
   "license": "MIT",
@@ -16,7 +16,8 @@
     "typescript",
     "mongo",
     "crud",
-    "mongo"
+    "mongo",
+    "store"
   ],
   "devDependencies": {
     "@types/cors": "^2.8.12",
