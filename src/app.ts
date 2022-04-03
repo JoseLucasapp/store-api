@@ -6,7 +6,7 @@ import express, { Request, Response } from 'express'
 import cors from 'cors'
 
 import swaggerUI from 'swagger-ui-express'
-import swaggerDocs from './swagger.json'
+import swaggerDocs from './config/swagger'
 
 const port = process.env.PORT || '3000'
 const version = process.env.VERSION || '1'
@@ -15,7 +15,7 @@ const app = express()
 
 app.use(express.json())
 app.use(cors())
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
+app.use('/api/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
 
 app.get('/', (req: Request, res: Response) => {
   res.status(200).json({ version: process.env.npm_package_version })
