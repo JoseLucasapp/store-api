@@ -36,6 +36,51 @@ export default {
         type: 'http',
         scheme: 'bearer',
         bearerFormat: 'JWT',
+        name: 'bearerAuth',
+        in: 'header',
+      },
+    },
+    Managers: {
+      type: 'object',
+      properties: {
+        email: {
+          type: 'string',
+        },
+        password: {
+          type: 'string',
+        },
+        storeName: {
+          type: 'string',
+        },
+        cnpj: {
+          type: 'string',
+        },
+        storeAddress: {
+          type: 'object',
+          properties: {
+            city: {
+              type: 'string',
+            },
+            neighborhood: {
+              type: 'string',
+            },
+            zipCode: {
+              type: 'string',
+            },
+            state: {
+              type: 'string',
+            },
+            street: {
+              type: 'string',
+            },
+            number: {
+              type: 'string',
+            },
+            complement: {
+              type: 'string',
+            },
+          },
+        },
       },
     },
   },

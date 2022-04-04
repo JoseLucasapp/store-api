@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose'
-import { createHash } from 'helpers/utils'
-import { AddressInterface } from 'helpers/types'
+import { createHash } from '../../../helpers/utils'
+import { AddressInterface } from '../../../helpers/types'
 
 export interface ManagerInterface {
   email: string
@@ -21,6 +21,14 @@ const schema = new Schema(
       type: String,
       required: true,
       set: createHash,
+    },
+    storeName: {
+      type: String,
+      required: true,
+    },
+    cnpj: {
+      type: String,
+      required: true,
     },
     storeAddress: {
       city: {

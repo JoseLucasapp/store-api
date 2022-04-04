@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
-import { verifyToken } from 'helpers/jwt'
-import { UserTypeEnum } from 'helpers/types'
+import { verifyToken } from '../../../helpers/jwt'
+import { UserTypeEnum } from '../../../helpers/types'
 
 export const validateJwt = (req: Request, res: Response, next: NextFunction, userType: UserTypeEnum[]) => {
   const { authorization } = req.headers
