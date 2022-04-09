@@ -124,5 +124,4 @@ export const getManager = async (req: Request, res: Response) => {
       },
     })
   }
-
 }
