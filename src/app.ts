@@ -15,20 +15,7 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-const options = {
-  swaggerOptions: {
-    authAction: {
-      JWT: {
-        name: 'JWT',
-        schema: { type: 'apiKey', in: 'header', name: 'Authorization', description: '' },
-        value:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNDg3MjczMWMxY2FkY2VkZmFhNWVhYyIsImVtYWlsIjoiam9zbHVjMjAxNkBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NDkwNDQ3NDMsImV4cCI6MTY1MTYzNjc0M30.voIPKbbFhtJjZW-SLuvoV3XBoJDjqSoFJorg5aNSCbA',
-      },
-    },
-  },
-}
-
-app.use('/api/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs, options))
+app.use('/api/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
 
 app.get('/', (req: Request, res: Response) => {
   res.status(200).json({ version: process.env.npm_package_version })

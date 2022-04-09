@@ -6,17 +6,10 @@ import ManagerModel from './model'
 
 export const newManager = async (req: Request, res: Response) => {
   try {
-    const managerCheck = await ManagerModel.findOne({ email: req.body.email })
-    if (managerCheck) {
-      return res.status(401).json({ msg: 'Email already used.' })
-    }
-    if (req.body.cnpj.length !== 14) {
-      return res.status(400).json({ msg: 'Invalid cnpj.' })
-    }
-
     const manager = new ManagerModel(req.body)
     const data = await manager.save()
-    res.status(200).json(data)
+    const managerDetails = await ManagerModel.findOne({ _id: data._id }).select('-password')
+    res.status(200).json(managerDetails)
   } catch (error: any) {
     printError({
       type: LogTypeEnum.error,
