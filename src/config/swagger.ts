@@ -10,7 +10,7 @@ export default {
     contact: {
       email: 'jlgf.profissional@gmail.com',
     },
-    version: '1.0.0',
+    version: '1.0.5',
   },
   servers: [
     {
