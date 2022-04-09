@@ -101,5 +101,97 @@ export default {
         },
       },
     },
+    get: {
+      summary: 'Search all managers.',
+      description: 'Route to search all managers',
+      tags: ['Managers'],
+      security: [{ authAction: [] }],
+      parameters: [
+        {
+          name: 'storeName',
+          in: 'query',
+          description: 'Search manager by store name.',
+          required: false
+        },
+        {
+          name: 'cnpj',
+          in: 'query',
+          description: 'Search manager by cnpj.',
+          required: false
+        },
+        {
+          name: 'email',
+          in: 'query',
+          description: 'Search manager by email.',
+          required: false
+        },
+        {
+          name: 'city',
+          in: 'query',
+          description: 'Search manager by city.',
+          required: false
+        },
+        {
+          name: 'neighborhood',
+          in: 'query',
+          description: 'Search manager by neighborhood.',
+          required: false
+        }
+      ],
+      responses: {
+        '500': {
+          description: 'Server error.',
+        },
+        '404': {
+          description: 'Not found.',
+        },
+        '200': {
+          description: 'OK',
+          content: {
+            'application/json': {
+              schema: {
+                type: 'array',
+                $ref: '#/components/schemas/Managers',
+              },
+            },
+          },
+        },
+      }
+    }
   },
+  '/managers/{id}': {
+    'get': {
+      summary: 'Search manager by his id.',
+      description: 'Route to search manager by his id..',
+      tags: ['Managers'],
+      security: [{ authAction: [] }],
+      parameters: [
+        {
+          name: 'id',
+          in: 'path',
+          description: 'Search manager by his id.',
+          required: true
+        }
+      ],
+      responses: {
+        '500': {
+          description: 'Server error.',
+        },
+        '404': {
+          description: 'Not found.',
+        },
+        '200': {
+          description: 'OK',
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                $ref: '#/components/schemas/Managers',
+              },
+            },
+          },
+        },
+      }
+    }
+  }
 }
