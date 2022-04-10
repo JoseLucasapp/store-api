@@ -83,5 +83,13 @@ export default {
         },
       },
     },
+    Delete: {
+      type: 'object',
+      properties: {
+        msg: {
+          type: 'string',
+        },
+      },
+    },
   },
 }

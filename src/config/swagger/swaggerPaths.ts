@@ -162,7 +162,7 @@ export default {
   '/managers/{id}': {
     get: {
       summary: 'Search manager by his id.',
-      description: 'Route to search manager by his id..',
+      description: 'Route to search manager by his id.',
       tags: ['Managers'],
       security: [{ authAction: [] }],
       parameters: [
@@ -194,8 +194,8 @@ export default {
       },
     },
     put: {
-      summary: 'Search and update a manager.',
-      description: 'Route to search and update a manager',
+      summary: 'Update a manager.',
+      description: 'Route to update a manager',
       tags: ['Managers'],
       security: [{ authAction: [] }],
       requestBody: {
@@ -230,7 +230,7 @@ export default {
         {
           name: 'id',
           in: 'path',
-          description: 'Search and update manager by his id.',
+          description: 'Search manager by his id.',
           required: true,
         },
       ],
@@ -248,6 +248,46 @@ export default {
               schema: {
                 type: 'array',
                 $ref: '#/components/schemas/Managers',
+              },
+            },
+          },
+        },
+      },
+    },
+    delete: {
+      summary: 'Delete manager by his id.',
+      description: 'Route to delete manager by his id.',
+      tags: ['Managers'],
+      security: [{ authAction: [] }],
+      parameters: [
+        {
+          name: 'id',
+          in: 'path',
+          description: 'Search manager by his id.',
+          required: true,
+        },
+      ],
+      responses: {
+        '500': {
+          description: 'Server error.',
+        },
+        '404': {
+          description: 'Not found.',
+        },
+        '200': {
+          description: 'OK',
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                $ref: '#/components/schemas/Delete',
+              },
+              examples: {
+                delete: {
+                  value: {
+                    msg: 'Deleted',
+                  },
+                },
               },
             },
           },

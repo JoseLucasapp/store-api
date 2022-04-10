@@ -1,5 +1,5 @@
 import mongoose, { Schema, model } from 'mongoose'
-import { createHash } from 'helpers/utils'
+import { createHash } from '../../../helpers/utils'
 
 export interface WorkersInterface {
   email: string

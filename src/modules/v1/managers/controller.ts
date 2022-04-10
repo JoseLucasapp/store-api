@@ -3,6 +3,8 @@ import { parseMongoErrors } from '../../../helpers/errors'
 import { LogTypeEnum, PageOptionsInterface } from '../../../helpers/types'
 import { printError, listLimit } from '../../../helpers/utils'
 import ManagerModel from './model'
+import ProductsModel from '../products/model'
+import WorkersModel from '../workers/model'
 
 export const newManager = async (req: Request, res: Response) => {
   try {
@@ -15,7 +17,7 @@ export const newManager = async (req: Request, res: Response) => {
       type: LogTypeEnum.error,
       moduleName: 'managers',
       functionName: 'managerLogin',
-      message: 'An error ocurred when trying to add an manager',
+      message: 'An error ocurred when trying to add a manager',
       stackTrace: error,
     })
     res.status(500).json({
@@ -114,7 +116,7 @@ export const getManager = async (req: Request, res: Response) => {
       type: LogTypeEnum.error,
       moduleName: 'managers',
       functionName: 'getManager',
-      message: 'An error ocurred when trying to get an manager',
+      message: 'An error ocurred when trying to get a manager',
       stackTrace: error,
     })
     res.status(500).json({
@@ -140,7 +142,47 @@ export const updateManager = async (req: Request, res: Response) => {
       type: LogTypeEnum.error,
       moduleName: 'managers',
       functionName: 'updateManager',
-      message: 'An error ocurred when trying to update an manager',
+      message: 'An error ocurred when trying to update a manager',
+      stackTrace: error,
+    })
+    res.status(500).json({
+      error: {
+        message: parseMongoErrors[error.code as keyof typeof parseMongoErrors],
+        content: [error],
+      },
+    })
+  }
+}
+
+export const deleteManager = async (req: Request, res: Response) => {
+  try {
+    const manager = await ManagerModel.findOne({ _id: req.params.id })
+    if (!manager) {
+      return res.status(404).json({ msg: 'NOT FOUND' })
+    }
+    await ProductsModel.deleteMany({ managerId: req.params.id }).exec((err) => {
+      if (err) {
+        return err
+      }
+    })
+    await WorkersModel.deleteMany({ managerId: req.params.id }).exec((err) => {
+      if (err) {
+        return err
+      }
+    })
+    await ManagerModel.deleteOne({ _id: req.params.id }).exec((err) => {
+      if (err) {
+        return err
+      }
+    })
+
+    res.status(200).json({ msg: 'deleted' })
+  } catch (error: any) {
+    printError({
+      type: LogTypeEnum.error,
+      moduleName: 'managers',
+      functionName: 'deleteManager',
+      message: 'An error ocurred when trying to delete a manager',
       stackTrace: error,
     })
     res.status(500).json({
