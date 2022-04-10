@@ -124,5 +124,30 @@ export const getManager = async (req: Request, res: Response) => {
       },
     })
   }
+}
 
+export const updateManager = async (req: Request, res: Response) => {
+  try {
+    await ManagerModel.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }).exec((err) => {
+      if (err) {
+        return err
+      }
+    })
+    const manager = await ManagerModel.findOne({ _id: req.params.id }).select('-password')
+    res.status(200).json(manager)
+  } catch (error: any) {
+    printError({
+      type: LogTypeEnum.error,
+      moduleName: 'managers',
+      functionName: 'updateManager',
+      message: 'An error ocurred when trying to update an manager',
+      stackTrace: error,
+    })
+    res.status(500).json({
+      error: {
+        message: parseMongoErrors[error.code as keyof typeof parseMongoErrors],
+        content: [error],
+      },
+    })
+  }
 }

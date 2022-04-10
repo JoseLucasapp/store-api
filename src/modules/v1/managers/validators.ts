@@ -24,8 +24,48 @@ export const create = async (req: Request, res: Response, next: NextFunction) =>
     printError({
       type: LogTypeEnum.error,
       moduleName: 'managers',
-      functionName: 'managerLogin',
+      functionName: 'create',
       message: 'An error ocurred when trying to add an manager',
+      stackTrace: error,
+    })
+    res.status(500).json({
+      error: {
+        message: error,
+        content: [error],
+      },
+    })
+  }
+}
+
+export const update = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    if (req.body.email) {
+      const managerCheck = await ManagerModel.findOne({ email: req.body.email }).select('email')
+      if (managerCheck) {
+        const managerEmail = (await ManagerModel.findOne({ _id: req.params.id }).select('email')) || { email: '' }
+        if (managerCheck.email !== managerEmail.email) {
+          return res.status(401).json({ msg: 'Email already used.' })
+        }
+      }
+    }
+    if (req.body.cnpj) {
+      if (req.body.cnpj.length !== 14) {
+        return res.status(400).json({ msg: 'Invalid cnpj.' })
+      }
+      const cnpjCheck = await ManagerModel.findOne({ cnpj: req.body.cnpj }).select('_id')
+      if (cnpjCheck) {
+        if (cnpjCheck._id.toString() !== req.params.id) {
+          return res.status(401).json({ msg: 'Cnpj already used.' })
+        }
+      }
+    }
+    return next()
+  } catch (error: any) {
+    printError({
+      type: LogTypeEnum.error,
+      moduleName: 'managers',
+      functionName: 'update',
+      message: 'An error ocurred when trying to update an manager',
       stackTrace: error,
     })
     res.status(500).json({

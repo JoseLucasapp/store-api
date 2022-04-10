@@ -111,32 +111,32 @@ export default {
           name: 'storeName',
           in: 'query',
           description: 'Search manager by store name.',
-          required: false
+          required: false,
         },
         {
           name: 'cnpj',
           in: 'query',
           description: 'Search manager by cnpj.',
-          required: false
+          required: false,
         },
         {
           name: 'email',
           in: 'query',
           description: 'Search manager by email.',
-          required: false
+          required: false,
         },
         {
           name: 'city',
           in: 'query',
           description: 'Search manager by city.',
-          required: false
+          required: false,
         },
         {
           name: 'neighborhood',
           in: 'query',
           description: 'Search manager by neighborhood.',
-          required: false
-        }
+          required: false,
+        },
       ],
       responses: {
         '500': {
@@ -156,11 +156,11 @@ export default {
             },
           },
         },
-      }
-    }
+      },
+    },
   },
   '/managers/{id}': {
-    'get': {
+    get: {
       summary: 'Search manager by his id.',
       description: 'Route to search manager by his id..',
       tags: ['Managers'],
@@ -170,8 +170,8 @@ export default {
           name: 'id',
           in: 'path',
           description: 'Search manager by his id.',
-          required: true
-        }
+          required: true,
+        },
       ],
       responses: {
         '500': {
@@ -191,7 +191,68 @@ export default {
             },
           },
         },
-      }
-    }
-  }
+      },
+    },
+    put: {
+      summary: 'Search and update an manager.',
+      description: 'Route to search and update an manager',
+      tags: ['Managers'],
+      security: [{ authAction: [] }],
+      requestBody: {
+        content: {
+          'application/json': {
+            schema: {
+              $ref: '#/components/schemas/Managers',
+            },
+            examples: {
+              manager: {
+                value: {
+                  email: 'manager@manager.com',
+                  password: 'managerPass',
+                  storeName: 'store',
+                  cnpj: '010101010101012',
+                  storeAddress: {
+                    city: 'city',
+                    neighborhood: 'neighborhood',
+                    zipCode: '123456789',
+                    state: 'state',
+                    street: 'street',
+                    number: 'number',
+                    complement: 'complement',
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      parameters: [
+        {
+          name: 'id',
+          in: 'path',
+          description: 'Search and update manager by his id.',
+          required: true,
+        },
+      ],
+      responses: {
+        '500': {
+          description: 'Server error.',
+        },
+        '404': {
+          description: 'Not found.',
+        },
+        '200': {
+          description: 'OK',
+          content: {
+            'application/json': {
+              schema: {
+                type: 'array',
+                $ref: '#/components/schemas/Managers',
+              },
+            },
+          },
+        },
+      },
+    },
+  },
 }
