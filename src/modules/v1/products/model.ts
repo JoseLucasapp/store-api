@@ -1,5 +1,5 @@
 import mongoose, { Schema, model } from 'mongoose'
-import { CategoryInterface } from 'modules/v1/categories/model'
+import { CategoryInterface } from '../categories/model'
 
 export interface ProductInterface {
   productName: string
