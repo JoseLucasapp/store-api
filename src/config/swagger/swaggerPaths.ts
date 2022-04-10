@@ -194,8 +194,8 @@ export default {
       },
     },
     put: {
-      summary: 'Search and update an manager.',
-      description: 'Route to search and update an manager',
+      summary: 'Search and update a manager.',
+      description: 'Route to search and update a manager',
       tags: ['Managers'],
       security: [{ authAction: [] }],
       requestBody: {
