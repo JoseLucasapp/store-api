@@ -25,7 +25,7 @@ export const create = async (req: Request, res: Response, next: NextFunction) =>
       type: LogTypeEnum.error,
       moduleName: 'managers',
       functionName: 'create',
-      message: 'An error ocurred when trying to add an manager',
+      message: 'An error ocurred when trying to add a manager',
       stackTrace: error,
     })
     res.status(500).json({
@@ -65,7 +65,7 @@ export const update = async (req: Request, res: Response, next: NextFunction) =>
       type: LogTypeEnum.error,
       moduleName: 'managers',
       functionName: 'update',
-      message: 'An error ocurred when trying to update an manager',
+      message: 'An error ocurred when trying to update a manager',
       stackTrace: error,
     })
     res.status(500).json({

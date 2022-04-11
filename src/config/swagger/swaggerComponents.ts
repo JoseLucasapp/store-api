@@ -91,5 +91,25 @@ export default {
         },
       },
     },
+    Workers: {
+      type: 'object',
+      properties: {
+        email: {
+          type: 'string',
+        },
+        password: {
+          type: 'string',
+        },
+        name: {
+          type: 'string',
+        },
+        role: {
+          type: 'string',
+        },
+        managerId: {
+          type: 'objectId',
+        },
+      },
+    },
   },
 }
