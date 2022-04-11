@@ -9,18 +9,18 @@ import swaggerDocs from './config/swagger'
 
 const port = process.env.PORT || '3000'
 const version = process.env.VERSION || '1'
-const modules: string[] = ['admins', 'managers']
+const modules: string[] = ['admins', 'managers', 'workers']
 const app = express()
 
 app.use(express.json())
 app.use(cors())
 
-app.use('/api/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
+app.use(`/api/v${version}/api-docs`, swaggerUI.serve, swaggerUI.setup(swaggerDocs))
 
-app.get('/', (req: Request, res: Response) => {
+app.get(`/`, (req: Request, res: Response) => {
   res.status(200).json({ version: process.env.npm_package_version })
 })
-app.get('/terms', (req: Request, res: Response) => {
+app.get(`/api/${version}/terms`, (req: Request, res: Response) => {
   res.status(200).json({ terms: 'Terms of service' })
 })
 

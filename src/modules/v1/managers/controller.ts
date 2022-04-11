@@ -1,10 +1,11 @@
 import { Request, Response } from 'express'
 import { parseMongoErrors } from '../../../helpers/errors'
-import { LogTypeEnum, PageOptionsInterface } from '../../../helpers/types'
+import { LogTypeEnum, PageOptionsInterface, UserTypeEnum } from '../../../helpers/types'
 import { printError, listLimit } from '../../../helpers/utils'
 import ManagerModel from './model'
 import ProductsModel from '../products/model'
 import WorkersModel from '../workers/model'
+import { generateToken } from '../../../helpers/jwt'
 
 export const newManager = async (req: Request, res: Response) => {
   try {
@@ -72,9 +73,7 @@ export const getAllManagers = async (req: Request, res: Response) => {
     .then((data) => {
       if (data.length === 0) {
         return res.status(404).json({
-          error: {
-            message: 'NOT_FOUND',
-          },
+          msg: 'NOT_FOUND',
         })
       }
       res.status(200).json({
@@ -91,7 +90,7 @@ export const getAllManagers = async (req: Request, res: Response) => {
       printError({
         type: LogTypeEnum.error,
         moduleName: 'managers',
-        functionName: 'getAll',
+        functionName: 'getAllManagers',
         message: 'An error ocurred when trying to list managers',
         stackTrace: error,
       })
@@ -183,6 +182,48 @@ export const deleteManager = async (req: Request, res: Response) => {
       moduleName: 'managers',
       functionName: 'deleteManager',
       message: 'An error ocurred when trying to delete a manager',
+      stackTrace: error,
+    })
+    res.status(500).json({
+      error: {
+        message: parseMongoErrors[error.code as keyof typeof parseMongoErrors],
+        content: [error],
+      },
+    })
+  }
+}
+
+export const managerLogin = async (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body
+    const manager = await ManagerModel.findOne({ email, password }).select('-password')
+    if (!manager) {
+      const managerPass = await ManagerModel.findOne({ email })
+      if (managerPass) {
+        return res.status(400).json({
+          error: {
+            message: 'Incorrect password',
+          },
+        })
+      }
+      return res.status(404).json({
+        error: {
+          message: 'User not found',
+        },
+      })
+    }
+    const token = generateToken({
+      id: manager._id,
+      email: manager.email,
+      role: UserTypeEnum.MANAGER,
+    })
+    return res.status(200).json({ user: manager, token })
+  } catch (error: any) {
+    printError({
+      type: LogTypeEnum.error,
+      moduleName: 'managers',
+      functionName: 'managerLogin',
+      message: 'An error ocurred when trying to login an manager',
       stackTrace: error,
     })
     res.status(500).json({
