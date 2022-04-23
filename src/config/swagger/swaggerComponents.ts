@@ -111,5 +111,31 @@ export default {
         },
       },
     },
+    Products: {
+      type: 'object',
+      properties: {
+        productName: {
+          type: 'string',
+        },
+        productPrice: {
+          type: 'number',
+        },
+        productDescription: {
+          type: 'string',
+        },
+        productBrand: {
+          type: 'string',
+        },
+        productAmount: {
+          type: 'number',
+        },
+        productCategory: {
+          type: 'string',
+        },
+        managerId: {
+          type: 'objectId',
+        },
+      },
+    },
   },
 }
