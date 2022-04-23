@@ -10,7 +10,6 @@ const schema = new Schema(
     categoryName: {
       type: String,
       required: true,
-      unique: true,
     },
     managerId: {
       type: mongoose.Types.ObjectId,

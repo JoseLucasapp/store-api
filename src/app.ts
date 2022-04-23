@@ -9,7 +9,7 @@ import swaggerDocs from './config/swagger'
 
 const port = process.env.PORT || '3000'
 const version = process.env.VERSION || '1'
-const modules: string[] = ['admins', 'managers', 'workers']
+const modules: string[] = ['admins', 'managers', 'workers', 'products']
 const app = express()
 
 app.use(express.json())

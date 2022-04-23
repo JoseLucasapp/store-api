@@ -557,4 +557,244 @@ export default {
       },
     },
   },
+  //PRODUCTS
+  '/products/': {
+    post: {
+      summary: 'Add a new product',
+      description: 'Route to create a new product.',
+      tags: ['Products'],
+      security: [{ authAction: [] }],
+      requestBody: {
+        content: {
+          'application/json': {
+            schema: {
+              $ref: '#/components/schemas/Products',
+            },
+            examples: {
+              manager: {
+                value: {
+                  productName: 'name',
+                  productPrice: 1000,
+                  productDescription: 'description',
+                  productBrand: 'brand',
+                  productAmount: 10,
+                  productCategory: 'category',
+                },
+              },
+            },
+          },
+        },
+      },
+      responses: {
+        '500': {
+          description: 'Server error.',
+        },
+        '200': {
+          description: 'OK',
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                $ref: '#/components/schemas/Products',
+              },
+            },
+          },
+        },
+      },
+    },
+    get: {
+      summary: 'Search all products.',
+      description: 'Route to search all products',
+      tags: ['Products'],
+      security: [{ authAction: [] }],
+      parameters: [
+        {
+          name: 'name',
+          in: 'query',
+          description: 'Search products by name.',
+          required: false,
+        },
+        {
+          name: 'startPrice',
+          in: 'query',
+          description: 'Search products by price.',
+          required: false,
+        },
+        {
+          name: 'endPrice',
+          in: 'query',
+          description: 'Search products by price.',
+          required: false,
+        },
+        {
+          name: 'category',
+          in: 'query',
+          description: 'Search products by category.',
+          required: false,
+        },
+        {
+          name: 'brand',
+          in: 'query',
+          description: 'Search products by brand.',
+          required: false,
+        },
+        {
+          name: 'startAmount',
+          in: 'query',
+          description: 'Search products by amount.',
+          required: false,
+        },
+        {
+          name: 'endAmount',
+          in: 'query',
+          description: 'Search products by amount.',
+          required: false,
+        },
+      ],
+      responses: {
+        '500': {
+          description: 'Server error.',
+        },
+        '404': {
+          description: 'Not found.',
+        },
+        '200': {
+          description: 'OK',
+          content: {
+            'application/json': {
+              schema: {
+                type: 'array',
+                $ref: '#/components/schemas/Products',
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+  '/products/{id}': {
+    get: {
+      summary: 'Search product by id.',
+      description: 'Route to get one product data',
+      tags: ['Products'],
+      security: [{ authAction: [] }],
+      parameters: [
+        {
+          name: 'id',
+          in: 'path',
+          description: 'Search product by id.',
+          required: false,
+        },
+      ],
+      responses: {
+        '500': {
+          description: 'Server error.',
+        },
+        '404': {
+          description: 'Not found.',
+        },
+        '200': {
+          description: 'OK',
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                $ref: '#/components/schemas/Products',
+              },
+            },
+          },
+        },
+      },
+    },
+    put: {
+      summary: 'Update a product.',
+      description: 'Route to update a product',
+      tags: ['Products'],
+      security: [{ authAction: [] }],
+      requestBody: {
+        content: {
+          'application/json': {
+            schema: {
+              $ref: '#/components/schemas/Products',
+            },
+            examples: {
+              manager: {
+                value: {
+                  productName: 'product new name',
+                  productPrice: 200,
+                },
+              },
+            },
+          },
+        },
+      },
+      parameters: [
+        {
+          name: 'id',
+          in: 'path',
+          description: 'Search product by id, to update.',
+          required: true,
+        },
+      ],
+      responses: {
+        '500': {
+          description: 'Server error.',
+        },
+        '404': {
+          description: 'Not found.',
+        },
+        '200': {
+          description: 'OK',
+          content: {
+            'application/json': {
+              schema: {
+                type: 'array',
+                $ref: '#/components/schemas/Product',
+              },
+            },
+          },
+        },
+      },
+    },
+    delete: {
+      summary: 'Delete product by id.',
+      description: 'Route to delete product by id.',
+      tags: ['Products'],
+      security: [{ authAction: [] }],
+      parameters: [
+        {
+          name: 'id',
+          in: 'path',
+          description: 'Search product by id, to delete.',
+          required: true,
+        },
+      ],
+      responses: {
+        '500': {
+          description: 'Server error.',
+        },
+        '404': {
+          description: 'Not found.',
+        },
+        '200': {
+          description: 'OK',
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                $ref: '#/components/schemas/Delete',
+              },
+              examples: {
+                delete: {
+                  value: {
+                    msg: 'Deleted',
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
 }
