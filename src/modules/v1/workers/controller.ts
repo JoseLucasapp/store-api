@@ -1,10 +1,9 @@
 import { Request, Response } from 'express'
 import { parseMongoErrors } from '../../../helpers/errors'
-import { LogTypeEnum, PageOptionsInterface, UserTypeEnum } from '../../../helpers/types'
+import { LogTypeEnum, PageOptionsInterface } from '../../../helpers/types'
 import { printError, listLimit } from '../../../helpers/utils'
 import WorkersModel from './model'
 import ManagerModel from '../managers/model'
-import { generateToken } from '../../../helpers/jwt'
 import mongoose from 'mongoose'
 
 export const newWorker = async (req: Request, res: Response) => {
@@ -170,48 +169,6 @@ export const deleteWorker = async (req: Request, res: Response) => {
       moduleName: 'workers',
       functionName: 'deleteWorker',
       message: 'An error ocurred when trying to delete an worker',
-      stackTrace: error,
-    })
-    res.status(500).json({
-      error: {
-        message: parseMongoErrors[error.code as keyof typeof parseMongoErrors],
-        content: [error],
-      },
-    })
-  }
-}
-
-export const workerLogin = async (req: Request, res: Response) => {
-  try {
-    const { email, password } = req.body
-    const worker = await WorkersModel.findOne({ email, password }).select('-password')
-    if (!worker) {
-      const workerPass = await WorkersModel.findOne({ email })
-      if (workerPass) {
-        return res.status(400).json({
-          error: {
-            message: 'Incorrect password',
-          },
-        })
-      }
-      return res.status(404).json({
-        error: {
-          message: 'User not found',
-        },
-      })
-    }
-    const token = generateToken({
-      id: worker._id,
-      email: worker.email,
-      role: UserTypeEnum.WORKER,
-    })
-    return res.status(200).json({ user: worker, token })
-  } catch (error: any) {
-    printError({
-      type: LogTypeEnum.error,
-      moduleName: 'workers',
-      functionName: 'workerLogin',
-      message: 'An error ocurred when trying to login an worker',
       stackTrace: error,
     })
     res.status(500).json({

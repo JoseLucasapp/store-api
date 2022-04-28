@@ -11,7 +11,7 @@ export default {
         },
       },
     },
-    AdminsLogin: {
+    Login: {
       type: 'object',
       properties: {
         id: {

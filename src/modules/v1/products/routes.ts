@@ -1,6 +1,6 @@
 import { NextFunction, Router, Request, Response } from 'express'
 import { UserTypeEnum } from '../../../helpers/types'
-import { validateJwt } from '../admins/validateLogin'
+import { validateJwt } from '../auth/validateLogin'
 import { deletProduct, getAllManagerProducts, getProduct, newProduct, updateProduct } from './controller'
 
 const router = Router()

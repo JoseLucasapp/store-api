@@ -1,6 +1,6 @@
 import { NextFunction, Router, Request, Response } from 'express'
 import { UserTypeEnum } from '../../../helpers/types'
-import { validateJwt } from '../admins/validateLogin'
+import { validateJwt } from '../auth/validateLogin'
 import { deleteWorker, getAllManagerWorkers, getWorker, newWorker, updateWorker } from './controller'
 import { create, update } from './validators'
 
