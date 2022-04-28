@@ -27,5 +27,6 @@ export const validateJwt = (req: Request, res: Response, next: NextFunction, use
     })
   }
   req.params.userId = String(user.id)
+  req.params.userRole = String(user.role)
   next()
 }
