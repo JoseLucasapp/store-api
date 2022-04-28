@@ -9,7 +9,7 @@ import mongoose from 'mongoose'
 
 export const newWorker = async (req: Request, res: Response) => {
   try {
-    const manager = new WorkersModel({ ...req.body, managerId: req.params.userId })
+    const manager = new WorkersModel({ ...req.body, managerId: req.params.userId, role: UserTypeEnum.WORKER })
     const data = await manager.save()
     const managerDetails = await WorkersModel.findOne({ _id: data._id }).select('-password')
     res.status(200).json(managerDetails)

@@ -11,11 +11,15 @@ router.post('/', [(req: Request, res: Response, next: NextFunction) => validateJ
 //GET
 router.get(
   '/',
-  [(req: Request, res: Response, next: NextFunction) => validateJwt(req, res, next, [UserTypeEnum.MANAGER])],
+  [(req: Request, res: Response, next: NextFunction) => validateJwt(req, res, next, [UserTypeEnum.MANAGER, UserTypeEnum.WORKER])],
   getAllManagerProducts,
 )
 
-router.get('/:id', [(req: Request, res: Response, next: NextFunction) => validateJwt(req, res, next, [UserTypeEnum.MANAGER])], getProduct)
+router.get(
+  '/:id',
+  [(req: Request, res: Response, next: NextFunction) => validateJwt(req, res, next, [UserTypeEnum.MANAGER, UserTypeEnum.WORKER])],
+  getProduct,
+)
 
 //PUT
 router.put(

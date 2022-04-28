@@ -3,6 +3,7 @@ import { parseMongoErrors } from '../../../helpers/errors'
 import { LogTypeEnum, PageOptionsInterface, UserTypeEnum } from '../../../helpers/types'
 import { printError, listLimit } from '../../../helpers/utils'
 import ProductsModel from '../products/model'
+import WorkersModel from '../workers/model'
 import mongoose from 'mongoose'
 
 export const newProduct = async (req: Request, res: Response) => {
@@ -45,9 +46,16 @@ export const getAllManagerProducts = async (req: Request, res: Response) => {
   if (req.query.startAmount) filter.push({ $gte: ['$productAmount', parseInt(req.query.startAmount.toString())] })
   if (req.query.endAmount) filter.push({ $lte: ['$productAmount', parseInt(req.query.endAmount.toString())] })
 
-  const managerId = new mongoose.Types.ObjectId(req.params.userId)
+  const manager: any = {}
 
-  filter.push({ $eq: ['$managerId', managerId] })
+  if (req.params.userRole === UserTypeEnum.MANAGER) {
+    manager.managerId = new mongoose.Types.ObjectId(req.params.userId)
+  }
+  if (req.params.userRole === UserTypeEnum.WORKER) {
+    const worker: any = await WorkersModel.findOne({ _id: req.params.userId }).select('managerId')
+    manager.managerId = new mongoose.Types.ObjectId(worker.managerId)
+  }
+  filter.push({ $eq: ['$managerId', manager.managerId] })
   const totalEntries = await ProductsModel.aggregate([
     {
       $match: {
