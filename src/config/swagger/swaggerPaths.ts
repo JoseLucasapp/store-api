@@ -1,15 +1,15 @@
 export default {
   //ADMINS
-  '/admins/login': {
+  '/auth/login': {
     post: {
-      summary: "Admin's login",
-      description: 'Route to get ath token.',
-      tags: ['Admins'],
+      summary: 'Route to login',
+      description: 'Route to get the auth token.',
+      tags: ['Auth'],
       requestBody: {
         content: {
           'application/json': {
             schema: {
-              $ref: '#/components/schemas/Admins',
+              $ref: '#/components/schemas/Login',
             },
             examples: {
               admin: {
@@ -35,7 +35,7 @@ export default {
             'application/json': {
               schema: {
                 type: 'object',
-                $ref: '#/components/schemas/Admins',
+                $ref: '#/components/schemas/Login',
               },
             },
           },
@@ -44,49 +44,6 @@ export default {
     },
   },
   //MANAGERS
-  '/managers/login': {
-    post: {
-      summary: "Manager's login",
-      description: 'Route to get the auth token.',
-      tags: ['Managers'],
-      requestBody: {
-        content: {
-          'application/json': {
-            schema: {
-              $ref: '#/components/schemas/Managers',
-            },
-            examples: {
-              admin: {
-                value: {
-                  email: 'manager@manager.com',
-                  password: 'managerpass',
-                },
-              },
-            },
-          },
-        },
-      },
-      responses: {
-        '400': {
-          description: 'Incorrect password',
-        },
-        '404': {
-          description: 'User not found',
-        },
-        '200': {
-          description: 'OK',
-          content: {
-            'application/json': {
-              schema: {
-                type: 'object',
-                $ref: '#/components/schemas/Managers',
-              },
-            },
-          },
-        },
-      },
-    },
-  },
   '/managers/': {
     post: {
       summary: 'Add a new manager',

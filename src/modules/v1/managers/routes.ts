@@ -1,7 +1,7 @@
 import { NextFunction, Router, Request, Response } from 'express'
 import { UserTypeEnum } from '../../../helpers/types'
-import { validateJwt } from '../admins/validateLogin'
-import { newManager, getAllManagers, getManager, updateManager, deleteManager, managerLogin } from './controller'
+import { validateJwt } from '../auth/validateLogin'
+import { newManager, getAllManagers, getManager, updateManager, deleteManager } from './controller'
 import { create, update } from './validators'
 
 const router = Router()
@@ -12,8 +12,6 @@ router.post(
   [(req: Request, res: Response, next: NextFunction) => validateJwt(req, res, next, [UserTypeEnum.ADMIN]), create],
   newManager,
 )
-
-router.post('/login', managerLogin)
 
 //GET
 router.get('/', [(req: Request, res: Response, next: NextFunction) => validateJwt(req, res, next, [UserTypeEnum.ADMIN])], getAllManagers)

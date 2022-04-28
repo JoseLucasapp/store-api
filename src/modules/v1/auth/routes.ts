@@ -1,9 +1,9 @@
 import { Router } from 'express'
-import { adminLogin } from './controller'
+import { login } from './controller'
 
 const router = Router()
 
 // POST
-router.post('/login', adminLogin)
+router.post('/login', login)
 
 module.exports = router

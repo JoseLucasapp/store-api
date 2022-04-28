@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { parseMongoErrors } from '../../../helpers/errors'
-import { LogTypeEnum, PageOptionsInterface, UserTypeEnum } from '../../../helpers/types'
+import { LogTypeEnum, PageOptionsInterface } from '../../../helpers/types'
 import { printError, listLimit } from '../../../helpers/utils'
 import ProductsModel from '../products/model'
 import WorkersModel from '../workers/model'
