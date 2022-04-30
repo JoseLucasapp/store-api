@@ -115,11 +115,9 @@ export const deleteCategory = async (req: Request, res: Response) => {
     if (category) {
       const categoryIsBeenUsed = await ProductsModel.find({ productCategory: req.params.id })
       if (categoryIsBeenUsed.length > 0) {
-        return res
-          .status(401)
-          .json({
-            msg: `This category is been used on ${categoryIsBeenUsed.length} ${categoryIsBeenUsed.length === 1 ? 'product' : 'products'}.`,
-          })
+        return res.status(401).json({
+          msg: `This category is been used on ${categoryIsBeenUsed.length} ${categoryIsBeenUsed.length === 1 ? 'product' : 'products'}.`,
+        })
       }
       await CategoryModel.deleteOne({ _id: req.params.id }).exec((err) => {
         if (err) {
