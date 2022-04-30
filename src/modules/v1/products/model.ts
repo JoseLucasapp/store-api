@@ -34,7 +34,7 @@ const schema = new Schema(
       required: true,
     },
     productCategory: {
-      type: String,
+      type: mongoose.Types.ObjectId,
       required: true,
     },
     managerId: {

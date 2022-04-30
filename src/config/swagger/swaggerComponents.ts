@@ -130,6 +130,17 @@ export default {
           type: 'number',
         },
         productCategory: {
+          type: 'objectId',
+        },
+        managerId: {
+          type: 'objectId',
+        },
+      },
+    },
+    Categories: {
+      type: 'object',
+      properties: {
+        categoryName: {
           type: 'string',
         },
         managerId: {
