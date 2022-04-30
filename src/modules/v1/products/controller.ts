@@ -1,14 +1,23 @@
 import { Request, Response } from 'express'
 import { parseMongoErrors } from '../../../helpers/errors'
-import { LogTypeEnum, PageOptionsInterface } from '../../../helpers/types'
+import { LogTypeEnum, PageOptionsInterface, UserTypeEnum } from '../../../helpers/types'
 import { printError, listLimit } from '../../../helpers/utils'
 import ProductsModel from '../products/model'
 import WorkersModel from '../workers/model'
+import CategoryModel from '../categories/model'
 import mongoose from 'mongoose'
 
 export const newProduct = async (req: Request, res: Response) => {
   try {
-    const product = new ProductsModel({ ...req.body, managerId: req.params.userId })
+    const category = await CategoryModel.findOne({ _id: req.body.categoryId })
+    if (!category) {
+      return res.status(404).json({ msg: 'CATEGORY NOT FOUND' })
+    }
+    const product = new ProductsModel({
+      ...req.body,
+      managerId: req.params.userId,
+      productCategory: new mongoose.Types.ObjectId(req.body.categoryId),
+    })
     const data = await product.save()
     const productDetails = await ProductsModel.findOne({ _id: data._id })
     res.status(200).json(productDetails)
@@ -38,7 +47,8 @@ export const getAllManagerProducts = async (req: Request, res: Response) => {
 
   if (req.query.name) filter.push({ $regexMatch: { input: '$productName', regex: req.query.name.toString(), options: 'i' } })
   if (req.query.brand) filter.push({ $regexMatch: { input: '$productBrand', regex: req.query.brand.toString(), options: 'i' } })
-  if (req.query.category) filter.push({ $regexMatch: { input: '$productCategory', regex: req.query.category.toString(), options: 'i' } })
+  if (req.query.category)
+    filter.push({ $regexMatch: { input: '$productCategoryName', regex: req.query.category.toString(), options: 'i' } })
 
   if (req.query.startPrice) filter.push({ $gte: ['$productPrice', parseInt(req.query.startPrice.toString())] })
   if (req.query.endPrice) filter.push({ $lte: ['$productPrice', parseInt(req.query.endPrice.toString())] })
@@ -58,6 +68,19 @@ export const getAllManagerProducts = async (req: Request, res: Response) => {
   filter.push({ $eq: ['$managerId', manager.managerId] })
   const totalEntries = await ProductsModel.aggregate([
     {
+      $lookup: {
+        from: 'categories',
+        localField: 'productCategory',
+        foreignField: '_id',
+        as: 'category',
+      },
+    },
+    {
+      $addFields: {
+        productCategoryName: { $arrayElemAt: ['$category.categoryName', 0] },
+      },
+    },
+    {
       $match: {
         $expr: {
           $and: filter,
@@ -71,6 +94,19 @@ export const getAllManagerProducts = async (req: Request, res: Response) => {
     .count('totalEntries')
 
   ProductsModel.aggregate([
+    {
+      $lookup: {
+        from: 'categories',
+        localField: 'productCategory',
+        foreignField: '_id',
+        as: 'category',
+      },
+    },
+    {
+      $addFields: {
+        productCategoryName: { $arrayElemAt: ['$category.categoryName', 0] },
+      },
+    },
     {
       $match: {
         $expr: {
@@ -168,7 +204,7 @@ export const updateProduct = async (req: Request, res: Response) => {
   }
 }
 
-export const deletProduct = async (req: Request, res: Response) => {
+export const deleteProduct = async (req: Request, res: Response) => {
   try {
     await ProductsModel.deleteOne({ _id: req.params.id }).exec((err) => {
       if (err) {

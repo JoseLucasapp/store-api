@@ -535,7 +535,7 @@ export default {
                   productDescription: 'description',
                   productBrand: 'brand',
                   productAmount: 10,
-                  productCategory: 'category',
+                  productCategory: 'objectId',
                 },
               },
             },
@@ -723,6 +723,163 @@ export default {
           name: 'id',
           in: 'path',
           description: 'Search product by id, to delete.',
+          required: true,
+        },
+      ],
+      responses: {
+        '500': {
+          description: 'Server error.',
+        },
+        '404': {
+          description: 'Not found.',
+        },
+        '200': {
+          description: 'OK',
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                $ref: '#/components/schemas/Delete',
+              },
+              examples: {
+                delete: {
+                  value: {
+                    msg: 'Deleted',
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+  //CATEGORIES
+  '/categories/': {
+    post: {
+      summary: 'Add a new category',
+      description: 'Route to create a new category.',
+      tags: ['Categories'],
+      security: [{ authAction: [] }],
+      requestBody: {
+        content: {
+          'application/json': {
+            schema: {
+              $ref: '#/components/schemas/Categories',
+            },
+            examples: {
+              manager: {
+                value: {
+                  categoryName: 'category',
+                },
+              },
+            },
+          },
+        },
+      },
+      responses: {
+        '500': {
+          description: 'Server error.',
+        },
+        '200': {
+          description: 'OK',
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                $ref: '#/components/schemas/Categories',
+              },
+            },
+          },
+        },
+      },
+    },
+    get: {
+      summary: 'Search all categories.',
+      description: 'Route to search all categories',
+      tags: ['Categories'],
+      security: [{ authAction: [] }],
+      responses: {
+        '500': {
+          description: 'Server error.',
+        },
+        '404': {
+          description: 'Not found.',
+        },
+        '200': {
+          description: 'OK',
+          content: {
+            'application/json': {
+              schema: {
+                type: 'array',
+                $ref: '#/components/schemas/Categories',
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+  '/categories/{id}': {
+    put: {
+      summary: 'Update a category.',
+      description: 'Route to update a category',
+      tags: ['Categories'],
+      security: [{ authAction: [] }],
+      requestBody: {
+        content: {
+          'application/json': {
+            schema: {
+              $ref: '#/components/schemas/Categories',
+            },
+            examples: {
+              manager: {
+                value: {
+                  categoryName: 'category new name',
+                },
+              },
+            },
+          },
+        },
+      },
+      parameters: [
+        {
+          name: 'id',
+          in: 'path',
+          description: 'Search category by id, to update.',
+          required: true,
+        },
+      ],
+      responses: {
+        '500': {
+          description: 'Server error.',
+        },
+        '404': {
+          description: 'Not found.',
+        },
+        '200': {
+          description: 'OK',
+          content: {
+            'application/json': {
+              schema: {
+                type: 'array',
+                $ref: '#/components/schemas/Categories',
+              },
+            },
+          },
+        },
+      },
+    },
+    delete: {
+      summary: 'Delete category by id.',
+      description: 'Route to delete category by id.',
+      tags: ['Categories'],
+      security: [{ authAction: [] }],
+      parameters: [
+        {
+          name: 'id',
+          in: 'path',
+          description: 'Search category by id, to delete.',
           required: true,
         },
       ],
