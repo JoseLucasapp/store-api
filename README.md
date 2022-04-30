@@ -7,5 +7,7 @@
 
 # System info
 
-  > Base url: /api/v1
-  > Swagger url: /api-docs
+```
+  Base url: /api/v1
+  Swagger url: /api-docs
+```
