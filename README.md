@@ -1,11 +1,11 @@
 <p align='center'>
-  <h2>Store Api</h2>
+  <h1>Store Api</h1>
 </p>
 
-# Description
+## Description
 <p>This rest api is a part of a system that was created to manage little store's inventories</p>
 
-# System info
+## System info
 
 ```
   Base url: /api/v1
