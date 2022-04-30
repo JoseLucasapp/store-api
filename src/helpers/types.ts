@@ -1,9 +1,9 @@
 import { Types } from 'mongoose'
 
 export enum UserTypeEnum {
-  admin = 'ADMIN',
-  manager = 'MANAGER',
-  worker = 'WORKER',
+  ADMIN = 'ADMIN',
+  MANAGER = 'MANAGER',
+  WORKER = 'WORKER',
 }
 
 export interface AuthInterface {
@@ -25,4 +25,19 @@ export interface LogInterface {
   message: string
   session?: any
   stackTrace?: any
+}
+
+export interface AddressInterface {
+  city: string
+  neighborhood: string
+  zipCode: string
+  state: string
+  street: string
+  number: string
+  complement?: string
+}
+
+export interface PageOptionsInterface {
+  page: number
+  limit: number
 }

@@ -1,16 +1,26 @@
 {
-  "name": "api-shop",
+  "name": "api-store",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./src/app.ts",
   "repository": "https://github.com/JoseLucasapp/api-shop.git",
   "author": "José Lucas <josluc2016@gmail.com>",
   "license": "MIT",
   "scripts": {
     "dev": "nodemon ./src/app.ts",
     "start": "NODE_ENV=production ts-node --transpile-only ./src/app.ts",
-    "format": "prettier --config .prettierrc \"./**/*.{js,ts,md,json}\" --write"
+    "format": "prettier --config .prettierrc \"./**/*.{js,ts,md,json}\" --write",
+    "seed": "ts-node ./src/seeds/index.ts"
   },
-  "keywords": [],
+  "keywords": [
+    "swagger",
+    "nodeJS",
+    "typescript",
+    "mongo",
+    "crud",
+    "mongo",
+    "store",
+    "shop"
+  ],
   "devDependencies": {
     "@types/cors": "^2.8.12",
     "@types/dotenv": "^8.2.0",
