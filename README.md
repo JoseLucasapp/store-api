@@ -7,8 +7,6 @@
 
 # System info
 <p>
-  ```
-    Base url: /api/v1
-    Swagger url: /api-docs
-  ```
+    > Base url: /api/v1
+    > Swagger url: /api-docs
 </p>
