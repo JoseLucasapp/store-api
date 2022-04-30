@@ -1,5 +1,5 @@
 <p align='center'>
-  <h1>Store Api</h1>
+  <h1 align='center'>Store Api</h1>
 </p>
 
 ## Description
